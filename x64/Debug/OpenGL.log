@@ -1,0 +1,7 @@
+﻿  main.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\shared\minwindef.h(130,9): warning C4005: APIENTRY: изменение макроопределения
+  (компиляция исходного файла "main.cpp")
+      C:\Users\Admin\source\repos\OpenGL\OpenGL\Library\include\glad\glad.h(32,9):
+      см. предыдущее определение "APIENTRY"
+  
+  OpenGL.vcxproj -> C:\Users\Admin\source\repos\OpenGL\x64\Debug\OpenGL.exe
