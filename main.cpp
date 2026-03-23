@@ -86,19 +86,19 @@ static int redisplay_interval = 16; // default ~60 FPS
 static std::atomic_bool timer_running(false);
 static std::thread timer_thread;
 
-// Вспомогательный цикл таймера, использующий GLFW (без GLUT)
+// Helper timer loop using GLFW (without GLUT)
 static void timer_loop()
 {
     while (timer_running.load())
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(redisplay_interval));
-        // Пробуждаем цикл событий GLFW — основной цикл выполнит перерисовку
+        // Wake up the GLFW event loop — the main loop will perform rendering
         glfwPostEmptyEvent();
     }
 }
 
-// Заглушка-совместимость (если где-то ожидается функция с таким именем)
-static void timer(int) { /* не используется, оставлено для совместимости */ }
+// Compatibility stub (in case some code expects a function with this name)
+static void timer(int) { /* not used, kept for compatibility */ }
 
 static void setFPS(int fps) {
     if (fps <= 0) fps = 1;
@@ -114,8 +114,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 }
 int main()
 {
-    glfwInit(); 
-    GLuint shaderProgram = createShader(vertexShaderSource, fragmentShaderSource);
+    glfwInit();
     // Specify OpenGL version (3.3 Core)
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -188,8 +187,8 @@ int main()
     glDeleteShader(fragmentShader);
 
     // ===== MAIN LOOP =====
-    // Перенесён расчёт FPS внутрь основного цикла (удалена лишняя внешняя while)
-    while (!glfwWindowShouldClose(window)) // когда окно не должно закрываваться
+    // FPS calculation moved inside the main loop (removed unnecessary outer while)
+    while (!glfwWindowShouldClose(window)) // while the window should not close
     {
         // FPS calculation and window title update
         static double lastTime = glfwGetTime();
@@ -240,4 +239,3 @@ int main()
 
     return 0;
 }
-
